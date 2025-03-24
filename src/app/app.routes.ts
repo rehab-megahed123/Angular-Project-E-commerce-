@@ -9,11 +9,12 @@ import { ValuesComponent } from './components/values/values.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { LoginComponent } from './components/login/login.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
+import { authGardGuard } from './guards/auth-gard.guard';
 
 export const routes: Routes = [
    {path:'',redirectTo:'Home',pathMatch:'full'} ,
     {path:'Home',component:HomeComponentComponent} ,// /Home
-    {path:'Products',component:ProductsComponent}  ,  // /Products
+    {path:'Products',component:ProductsComponent,canActivate:[authGardGuard]}  ,  // /Products
     {path:'AddProduct',component:AddProductComponent}  , 
     {path:'AboutUs',component:AboutUsComponent,children:[
         {path:'',redirectTo:'Vision',pathMatch:'full'},

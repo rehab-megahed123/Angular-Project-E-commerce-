@@ -8,7 +8,7 @@ import { UserAuthService } from '../../Services/user-auth.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  isUserLogged:boolean=false
+  isUserLogged!:boolean
   constructor(private _userauthService:UserAuthService){
          
   }

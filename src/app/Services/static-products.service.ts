@@ -42,6 +42,9 @@ products:IProduct[]
       }
     ]
    }
+   addProduct(product:IProduct){
+    this.products.push(product)
+   }
    getAllProducts():IProduct[]{
        return this.products
    }

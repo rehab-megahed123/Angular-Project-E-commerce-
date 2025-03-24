@@ -1,2 +1,2 @@
-<button class="btn btn-primary" (click)="login()">Login</button>>
-<button class="btn btn-danger" (click)="logout()">Logout</button>>
+<button class="btn btn-primary" [disabled]="isUserLogged==true" (click)="login()">Login</button>>
+<button class="btn btn-danger" [disabled]="isUserLogged==false"  (click)="logout()">Logout</button>>

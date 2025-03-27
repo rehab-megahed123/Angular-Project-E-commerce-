@@ -1,24 +1,24 @@
 <div class="container mt-5">
     <h2>Add Product</h2>
-    <form (ngSubmit)="onSubmit()" #productForm="ngForm">
+    <form (ngSubmit)="Submit()" #productForm="ngForm">
       <div class="form-group">
         <label for="name">Product Name</label>
-        <input type="text" class="form-control" id="name" [(ngModel)]="product.name" name="name" required>
+        <input type="text" class="form-control" id="name" [(ngModel)]="newproduct.name" name="name" required>
       </div>
   
       <div class="form-group">
         <label for="description">Quantity</label>
-        <input class="form-control" id="description" [(ngModel)]="product.quantity" name="quantity" required>
+        <input class="form-control" id="description" [(ngModel)]="newproduct.quantity" name="quantity" required>
       </div>
   
       <div class="form-group">
         <label for="price">Price</label>
-        <input type="number" class="form-control" id="price" [(ngModel)]="product.price" name="price" required>
+        <input type="number" class="form-control" id="price" [(ngModel)]="newproduct.price" name="price" required>
       </div>
   
       <div class="form-group">
         <label for="imageUrl">Image URL</label>
-        <input type="url" class="form-control" id="imageUrl" [(ngModel)]="product.imgUrl" name="imageUrl" required>
+        <input type="url" class="form-control" id="imageUrl" [(ngModel)]="newproduct.imgUrl" name="imageUrl" required>
       </div>
   
       <button type="submit" class="btn btn-primary" routerLink="/Products" [disabled]="!productForm.form.valid">Add Product</button>

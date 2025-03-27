@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { IProduct } from '../../models/iproduct';
 import { CommonModule } from '@angular/common';
 import { ICategory } from '../../models/icategory';
@@ -8,6 +8,7 @@ import { SquarePipe } from '../../pipes/square.pipe';
 import { OrderComponent } from '../order/order.component';
 import { StaticProductsService } from '../../Services/static-products.service';
 import { Route, Router, RouterLink } from '@angular/router';
+import { ApiProductsService } from '../../Services/api-products.service';
 
 @Component({
   selector: 'app-products',
@@ -15,7 +16,7 @@ import { Route, Router, RouterLink } from '@angular/router';
   templateUrl: './products.component.html',
   styleUrls:['./products.component.css']
 })
-export class ProductsComponent implements OnChanges {
+export class ProductsComponent implements OnChanges,OnInit {
 navigateTodetails(id:number) {
   //  this.router.navigateByUrl(`/Details/${id}`)    
    this.router.navigate(['/Details',id])
@@ -23,7 +24,7 @@ navigateTodetails(id:number) {
  @Input() receivedCategoryId:number=0
   filterList:IProduct[]
   num:number=4
-  products:IProduct[];
+  products:IProduct[]=[] as IProduct[];
   totalOrderPrice :number;
  //define event 
 @Output() onTotalPriceChanged :EventEmitter<number>
@@ -41,18 +42,34 @@ navigateTodetails(id:number) {
   //   }
   // }
 
-  constructor(private _staticProductService:StaticProductsService,
+  constructor(private _productApiService:ApiProductsService,
     private router:Router
   ){
 
     
   this.onTotalPriceChanged=new EventEmitter<number>(); 
   this.totalOrderPrice=0;
-   this. products=this._staticProductService.getAllProducts()
+ //  this. products=this._staticProductService.getAllProducts()
     this.filterList=this.products;
   }
+  ngOnInit(): void {
+    this._productApiService.getAllProducts().subscribe({
+      next:(arr)=>{
+        this.products=arr
+        this.filterList=arr
+      },
+      error:()=>{}
+    })
+  }
   ngOnChanges() {
-   this.filterList= this._staticProductService.getProductByCategoryId(this.receivedCategoryId)
+  // this.filterList= this._staticProductService.getProductByCategoryId(this.receivedCategoryId)
+  this._productApiService.getProductByCategoryId(this.receivedCategoryId).subscribe(
+    {
+      next:(arr)=>{this.filterList=arr},
+      error:()=>{}
+    }
+    
+  )
   }
   
 

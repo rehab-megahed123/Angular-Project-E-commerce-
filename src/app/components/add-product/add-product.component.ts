@@ -12,21 +12,13 @@ import { RouterLink } from '@angular/router';
 })
 export class AddProductComponent {
   constructor(private _ProductService:StaticProductsService){
-    this._ProductService.addProduct(this.product);
+    this._ProductService.addProduct(this.newproduct);
   }
   
-  product: IProduct = {
-    id:0,
-    name:'',
-    price:0,
-    quantity:0,
-    imgUrl:'',
-    catId:0
-  };
-  onSubmit() {
-    console.log('Product Added:', this.product);
+  newproduct: IProduct={} as IProduct
+  Submit() {
+    console.log('Product Added:', this.newproduct);
     
   }
-
 
 }
